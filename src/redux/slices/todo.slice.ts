@@ -1,26 +1,35 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {ITodo} from '../../interfaces';
+
 import {todoService} from '../../services';
+import {IResponse} from '../../interfaces/response.interface';
 
 interface IState {
-  todos: ITodo[];
+  response: IResponse;
 }
 
 let initialState: IState = {
-  todos: [],
+  response: {
+    limit: 0,
+    skip: 0,
+    todos: [],
+    total: 0,
+  },
 };
 
-const getAll = createAsyncThunk<ITodo[], void>('todoSlice/getAll', async () => {
-  const {data} = await todoService.getAll();
-  return data;
-});
+const getAll = createAsyncThunk<IResponse, void>(
+  'todoSlice/getAll',
+  async () => {
+    const {data} = await todoService.getAll();
+    return data;
+  },
+);
 const todoSlice = createSlice({
   name: 'todoSlice',
   initialState,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(getAll.fulfilled, (state, action) => {
-      state.todos = action.payload;
+      state.response = action.payload;
     });
   },
 });

@@ -1,17 +1,25 @@
-import {View} from 'react-native';
-import {FC} from 'react';
+import {Text, View} from 'react-native';
+import {FC, useEffect} from 'react';
 
-import {useAppSelector} from '../../hook';
-import {Todo} from '../Todo/Todo';
+import {useAppDispatch, useAppSelector} from '../../hook';
+// import {Todo} from '../Todo/Todo';
+import {todoActions} from '../../redux/slices';
+import {todoService} from '../../services';
 
 const Todos: FC = () => {
-  const {todos} = useAppSelector(state => state.todoReducer);
-
+  const {response} = useAppSelector(state => state.todoReducer);
+  let dispatch = useAppDispatch();
+  // let [todos, setTodos] = useState([]);
+  useEffect(() => {
+    dispatch(todoActions.getAll);
+    console.log(todoService.getAll());
+  }, [dispatch, response]);
   return (
     <View>
-      {todos.map(todo => (
-        <Todo todo={todo} key={todo.id} />
-      ))}
+      <Text>I am working!!!!!!!!!!!!!!</Text>
+      {/*{todos.map(todo => (*/}
+      {/*  <Todo todo={todo} key={todo.id} />*/}
+      {/*))}*/}
     </View>
   );
 };
