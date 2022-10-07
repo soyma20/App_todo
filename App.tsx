@@ -1,24 +1,28 @@
 import React from 'react';
-import {SafeAreaView, StatusBar, Text, View} from 'react-native';
-import {Provider as ReduxProvider} from 'react-redux';
+import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {Provider} from 'react-redux';
 
 import {setupStore} from './src/redux';
-import {Todos} from './src/components';
+import {Navigate} from './src/navigation';
 
 const store = setupStore();
 
 const App = () => {
   return (
-    <ReduxProvider store={store}>
-      <SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <Navigate />
         <StatusBar />
-        <Text>I am working!!!!!</Text>
-        <View>
-          <Todos />
-        </View>
       </SafeAreaView>
-    </ReduxProvider>
+    </Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E8EAED',
+  },
+});
 
 export default App;

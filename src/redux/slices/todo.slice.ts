@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
-import {todoService} from '../../services';
 import {IResponse} from '../../interfaces/response.interface';
 
 interface IState {
@@ -9,18 +8,23 @@ interface IState {
 
 let initialState: IState = {
   response: {
-    limit: 0,
-    skip: 0,
+    limit: NaN,
     todos: [],
-    total: 0,
+    skip: NaN,
+    total: NaN,
   },
 };
 
 const getAll = createAsyncThunk<IResponse, void>(
   'todoSlice/getAll',
   async () => {
-    const {data} = await todoService.getAll();
+    const data = fetch('https://dummyjson.com/todos?limit=5').then(res =>
+      res.json(),
+    );
     return data;
+
+    // const {data} = await todoService.getAll();
+    // return data;
   },
 );
 const todoSlice = createSlice({
