@@ -8,19 +8,20 @@ interface IState {
 
 let initialState: IState = {
   response: {
-    limit: NaN,
+    limit: 5,
     todos: [],
-    skip: NaN,
+    skip: 0,
     total: NaN,
   },
 };
 
-const getAll = createAsyncThunk<IResponse, void>(
+const getAll = createAsyncThunk<IResponse, number>(
   'todoSlice/getAll',
-  async () => {
-    const data = fetch('https://dummyjson.com/todos?limit=5').then(res =>
-      res.json(),
-    );
+  async (skip: number) => {
+    const data = fetch(
+      `https://dummyjson.com/todos?limit=5&skip=${skip}`,
+      // 'https://dummyjson.com/todos?limit=5',
+    ).then(res => res.json());
     return data;
 
     // const {data} = await todoService.getAll();

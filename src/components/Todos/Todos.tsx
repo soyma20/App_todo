@@ -6,33 +6,26 @@ import {Todo} from '../Todo/Todo';
 import {todoActions} from '../../redux/slices';
 
 const Todos: FC = () => {
-  const {
-    response: {todos},
-  } = useAppSelector(state => state.todoReducer);
-
+  const {response} = useAppSelector(state => state.todoReducer);
   let dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(todoActions.getAll());
-    console.log(todoActions.getAll());
+    dispatch(todoActions.getAll(0));
+    console.log(todoActions.getAll(0));
   }, [dispatch]);
 
   return (
-    <View>
-      <View style={styles.container}>
-        {todos.map(todo => (
-          <Todo text={todo.todo} todo={todo} key={todo.id} />
-        ))}
-      </View>
+    <View style={styles.container}>
+      {response.todos.map(todo => (
+        <Todo todo={todo} key={todo.id} />
+      ))}
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
   },
 });
 

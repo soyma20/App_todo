@@ -5,19 +5,15 @@ import {ITodo} from '../../interfaces';
 
 interface IProps {
   todo: ITodo;
-  text: string;
 }
 
-const Todo: FC<IProps> = ({todo, text}) => {
+const Todo: FC<IProps> = ({todo}) => {
   console.log(todo.todo);
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.square} />
-        <Text style={styles.todoText}>
-          {text.toString()}
-          {todo.todo.toString()}
-        </Text>
+        <Text style={styles.todoText}>{todo.todo}</Text>
       </View>
       <View style={styles.circular} />
     </View>
